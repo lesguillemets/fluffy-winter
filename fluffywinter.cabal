@@ -1,0 +1,32 @@
+name:                fluffywinter
+version:             0.1.0.0
+synopsis:            Initial project template from stack
+description:         Please see README.md
+homepage:            https://github.com/lesguillemets/a#readme
+license:             AllRightsReserved
+license-file:        LICENSE
+author:              lesguillemets
+maintainer:          kgkacko+github@gmail.com
+copyright:           2016 lesguillemets
+category:            
+build-type:          Simple
+-- extra-source-files:
+cabal-version:       >=1.10
+
+library
+  hs-source-dirs:      src
+  exposed-modules:     Lib
+  build-depends:       base >= 4.7 && < 5
+  default-language:    Haskell2010
+
+executable 001
+  hs-source-dirs:      answers
+  main-is:             001.hs
+  ghc-options:         -threaded -rtsopts -with-rtsopts=-N
+  build-depends:       base
+                     , fluffywinter
+  default-language:    Haskell2010
+
+source-repository head
+  type:     git
+  location: https://github.com/lesguillemets/a
