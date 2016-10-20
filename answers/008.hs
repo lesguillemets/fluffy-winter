@@ -1,12 +1,21 @@
 {-# LANGUAGE OverloadedLists #-}
-import qualified Data.Vector as V
-import qualified Data.Vector.Unboxed as U
-import Data.List (foldl')
+import Data.List (foldl', splitAt, transpose)
 
-main = print . V.maximum . V.map (maxInLine 13) $ source
+main = do
+    print . maximum . map (maxInLine 13) $ source
+--     print . maximum . map (maxInLine 13) . transpose $ source
 
-maxInLine :: Int -> U.Vector Int -> Int
-maxInLine n l = undefined
+maxInLine :: Int -> [Integer] -> (Integer, [Integer])
+maxInLine n l =
+    snd $ foldl' scanner (pre, (product pre, pre)) post
+    where
+        (pre,post) = splitAt n l
+        scanner (currentList,lx@(currentProd,_)) newValue =
+            let tl = tail currentList
+                nextProd = (product tl) * newValue
+                nextList = tl ++ [newValue]
+                in
+            (nextList, max (nextProd, nextList) lx)
 
 
 sourceStr :: [String]
@@ -32,5 +41,5 @@ sourceStr = [
     "05886116467109405077541002256983155200055935729725",
     "71636269561882670428252483600823257530420752963450"
     ]
-source :: V.Vector (U.Vector Int)
-source = V.fromList $ map (U.fromList . map (read . return)) sourceStr
+source :: [[Integer]]
+source = map (map (read . return)) sourceStr
