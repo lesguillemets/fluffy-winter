@@ -1,9 +1,7 @@
 {-# LANGUAGE OverloadedLists #-}
 import Data.List (foldl', splitAt, transpose)
 
-main = do
-    print . maximum . map (maxInLine 13) $ source
---     print . maximum . map (maxInLine 13) . transpose $ source
+main = print . maxInLine 13 $ source
 
 maxInLine :: Int -> [Integer] -> (Integer, [Integer])
 maxInLine n l =
@@ -41,5 +39,5 @@ sourceStr = [
     "05886116467109405077541002256983155200055935729725",
     "71636269561882670428252483600823257530420752963450"
     ]
-source :: [[Integer]]
-source = map (map (read . return)) sourceStr
+source :: [Integer]
+source = concatMap (map (read . return)) sourceStr
